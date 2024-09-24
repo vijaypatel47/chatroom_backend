@@ -15,8 +15,7 @@ async function bootstrap() {
     forbidNonWhitelisted: true, 
     validationError: { target: false, value: false },
   }));
-  const port = process.env.PORT || 3001;
-  await app.listen(port); // Backend URL
+  await app.listen(3001); // Backend URL
 }
 
 bootstrap();
