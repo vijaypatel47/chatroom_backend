@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'https://chat-room-demo-three.vercel.app', // Frontend URL
+    origin: 'http://localhost:3000', // Frontend URL
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type, Authorization'
   });
