@@ -1,5 +1,5 @@
 import { WebSocketGateway, SubscribeMessage, MessageBody, OnGatewayConnection, OnGatewayDisconnect, WebSocketServer, ConnectedSocket } from '@nestjs/websockets';
-import { Server,Socket } from 'socket.io';
+import { Socket,Server } from 'socket.io';
 import { Client } from 'socket.io/dist/client';
 
 @WebSocketGateway({
@@ -10,7 +10,7 @@ import { Client } from 'socket.io/dist/client';
   })
 
 export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() socket: Socket;
+  @WebSocketServer() server: Server;
 
   handleConnection(client: any) {
     console.log('Client connected  ' + client.id);
@@ -25,7 +25,7 @@ export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
     // console.log(socket.id)
     // console.log(message)
     // console.log(client.id)
-    this.socket.emit('message',{"msg":message, "sender":client.id});
+    this.server.emit('message',{"msg":message, "sender":client.id});
     // this.server.except(client.id).emit('message', message); // these is used to hide response from the server or cureent client which send msg
   }
 }
