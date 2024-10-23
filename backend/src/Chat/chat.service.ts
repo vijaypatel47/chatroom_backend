@@ -1,11 +1,11 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody, OnGatewayConnection, OnGatewayDisconnect, WebSocketServer } from '@nestjs/websockets';
-import { Server } from 'socket.io';
+import { WebSocketGateway, SubscribeMessage, MessageBody, OnGatewayConnection, OnGatewayDisconnect, WebSocketServer, ConnectedSocket } from '@nestjs/websockets';
+import { Server,Socket } from 'socket.io';
+import { Client } from 'socket.io/dist/client';
 
 @WebSocketGateway({
     cors: {
-      origin: 'https://chat-room-demo-three.vercel.app',
-      methods: ['GET', 'POST'],
-      credentials: true,
+      origin: ['https://chat-room-demo-three.vercel.app', 'http://localhost:3000'],
+      
     },
   })
 
@@ -13,15 +13,19 @@ export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
   handleConnection(client: any) {
-    console.log('Client connected');
+    console.log('Client connected  ' + client.id);
   }
 
   handleDisconnect(client: any) {
-    console.log('Client disconnected');
+    console.log('Client disconnected  '+ client.id);
   }
-
+  
   @SubscribeMessage('message')
-  handleMessage(@MessageBody() message: string): void {
-    this.server.emit('message', message);
+  handleMessage(@MessageBody() message: string, @ConnectedSocket() socket:Socket, client:any): void {
+    // console.log(socket.id)
+    // console.log(message)
+    // console.log(client.id)
+    this.server.emit('message',{"msg":message, "sender":socket.id});
+    // this.server.except(client.id).emit('message', message); // these is used to hide response from the server or cureent client which send msg
   }
 }
