@@ -10,7 +10,7 @@ import { Client } from 'socket.io/dist/client';
   })
 
 export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() server: Server;
+  @WebSocketServer() socket: Socket;
 
   handleConnection(client: any) {
     console.log('Client connected  ' + client.id);
@@ -25,7 +25,7 @@ export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
     // console.log(socket.id)
     // console.log(message)
     // console.log(client.id)
-    this.server.emit('message',{"msg":message, "sender":client.id});
+    this.socket.emit('message',{"msg":message, "sender":client.id});
     // this.server.except(client.id).emit('message', message); // these is used to hide response from the server or cureent client which send msg
   }
 }
