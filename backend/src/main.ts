@@ -7,7 +7,7 @@ async function bootstrap() {
   
   app.enableCors({
     origin: ['http://localhost:3000', 'https://chat-room-demo-three.vercel.app'], // Frontend URLs
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    methods: ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'],
     credentials:true
   });
 

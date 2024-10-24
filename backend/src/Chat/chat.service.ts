@@ -5,7 +5,7 @@ import { Client } from 'socket.io/dist/client';
 @WebSocketGateway({
     cors: {
       origin: ['https://chat-room-demo-three.vercel.app', 'http://localhost:3000'],
-      method:['GET','POST'],
+      method:['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'],
       credentials:true
     },
   })
