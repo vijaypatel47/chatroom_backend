@@ -6,6 +6,7 @@ import { Client } from 'socket.io/dist/client';
     cors: {
       origin: ['https://chat-room-demo-three.vercel.app', 'http://localhost:3000'],
       method:['GET','POST'],
+      credentials:true
       
     },
   })
