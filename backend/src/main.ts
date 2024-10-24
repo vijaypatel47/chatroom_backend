@@ -7,8 +7,8 @@ async function bootstrap() {
   
   app.enableCors({
     origin: ['http://localhost:3000', 'https://chat-room-demo-three.vercel.app'], // Frontend URLs
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type, Authorization'
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials:true
   });
 
   app.useGlobalPipes(new ValidationPipe({
