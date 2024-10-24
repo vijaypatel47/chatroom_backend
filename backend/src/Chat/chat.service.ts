@@ -7,12 +7,11 @@ import { Client } from 'socket.io/dist/client';
       origin: ['https://chat-room-demo-three.vercel.app', 'http://localhost:3000'],
       method:['GET','POST'],
       credentials:true
-      
     },
   })
 
 export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() server: Server;
+  @WebSocketServer() server: Socket;
 
   handleConnection(client: any) {
     console.log('Client connected  ' + client.id);
