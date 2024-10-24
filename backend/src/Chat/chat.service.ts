@@ -5,12 +5,13 @@ import { Client } from 'socket.io/dist/client';
 @WebSocketGateway({
     cors: {
       origin: ['https://chat-room-demo-three.vercel.app', 'http://localhost:3000'],
+      method:['GET','POST'],
       
     },
   })
 
 export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() socket: Socket;
+  @WebSocketServer() server: Server;
 
   handleConnection(client: any) {
     console.log('Client connected  ' + client.id);
@@ -21,11 +22,11 @@ export class ChatService implements OnGatewayConnection, OnGatewayDisconnect {
   }
   
   @SubscribeMessage('message')
-  handleMessage(@MessageBody() message: string, @ConnectedSocket() client:Socket): void {
+  handleMessage(@MessageBody() message: string, @ConnectedSocket() client:any): void {
     // console.log(socket.id)
     // console.log(message)
     // console.log(client.id)
-    this.socket.emit('message',{"msg":message, "sender":client.id});
+    this.server.emit('message',{"msg":message, "sender":client.id});
     // this.server.except(client.id).emit('message', message); // these is used to hide response from the server or cureent client which send msg
   }
 }
